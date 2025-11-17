@@ -35,26 +35,22 @@ CRITICAL RULES:
 3. IGNORE: phone numbers, application numbers, file numbers, reference IDs, dates, prices
 4. OTP formats to look for: 4-8 digits OR 4-8 alphanumeric characters (case-sensitive)
 5. If multiple codes exist, prioritize the one closest to OTP-related keywords
-6. The regex MUST be specific to avoid false positives - include context/delimiters from the actual text
 
 REQUIRED JSON RESPONSE FORMAT:
 {
-  "status": true/false,
-  "otp": "the extracted code only" (only if status is true),
-  "regex": "precise regex with escaped backslashes for JSON" (only if status is true)
+  "status": true,
+  "otp": "the extracted code only"
 }
 
-REGEX REQUIREMENTS:
-- Include surrounding context (words, punctuation, whitespace) to make it specific
-- Use \\\\d for digits, \\\\w for word chars (properly escaped for JSON)
-- Example: "code is 123456" should produce regex like "code is (\\\\d{6})" NOT just "(\\\\d{6})"
-- Make it match ONLY the OTP in this specific message format
+OR if no OTP found:
+{
+  "status": false
+}
 
 SMS TEXT TO ANALYZE:
 ${text}
 
-Remember: Return ONLY the JSON object, nothing else.`;
-
+Remember: Return ONLY the JSON object with status and otp fields, nothing else.`;
 
     // Call Google Gemini API
     const response = await ai.models.generateContent({

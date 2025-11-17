@@ -239,8 +239,7 @@
 
                 // Display result
                 if (data.status === true && data.otp) {
-                    const regexDisplay = data.regex ? `<div style="margin-top: 15px; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 5px; font-family: 'Courier New', monospace; font-size: 14px; word-break: break-all;"><strong>Regex Pattern:</strong><br/>${escapeHtml(data.regex)}</div>` : '';
-                    showResult('success', `OTP Found!`, `<div class="otp-code">${data.otp}</div>${regexDisplay}`);
+                    showResult('success', `OTP Found!`, `<div class="otp-code">${data.otp}</div>`);
                 } else {
                     showResult('no-otp', 'No OTP Found', 'No OTP or verification code was detected in the provided text.');
                 }
@@ -253,12 +252,6 @@
                 submitBtn.disabled = false;
             }
         });
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
 
         function showResult(type, title, content = '') {
             resultDiv.className = `result ${type}`;
