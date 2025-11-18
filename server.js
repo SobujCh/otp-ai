@@ -21,8 +21,7 @@ app.post('/api/find-otp', async (req, res) => {
     let { text, apiKey } = req.body;
 
     if (
-      process.env.API_KEY && apiKey !== process.env.API_KEY &&
-      process.env.API_KEY1 && apiKey !== process.env.API_KEY1
+      process.env.API_KEY && apiKey !== process.env.API_KEY
     ) {
       return res.status(403).json({ error: 'Invalid API key' });
     }
