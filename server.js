@@ -23,7 +23,6 @@ app.post('/api/find-otp', async (req, res) => {
     if (process.env.API_KEY && apiKey !== process.env.API_KEY) {
       return res.status(403).json({ error: 'Invalid API key' });
     }
-    console.log('Received API key:', apiKey, process.env.API_KEY); // Debug log
     // Trim the text
     text = text ? text.trim() : '';
 
