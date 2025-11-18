@@ -18,7 +18,14 @@ app.use(express.static('public'));
 // API endpoint to find OTP
 app.post('/api/find-otp', async (req, res) => {
   try {
-    let { text } = req.body;
+    let { text, apiKey } = req.body;
+
+    if (
+      process.env.API_KEY && apiKey !== process.env.API_KEY &&
+      process.env.API_KEY1 && apiKey !== process.env.API_KEY1
+    ) {
+      return res.status(403).json({ error: 'Invalid API key' });
+    }
 
     // Trim the text
     text = text ? text.trim() : '';
